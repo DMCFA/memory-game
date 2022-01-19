@@ -1,4 +1,3 @@
-import Link from 'next/link';
 import { StyledNav } from '../styles/Nav.styled';
 
 const Nav = () => {
