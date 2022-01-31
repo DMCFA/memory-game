@@ -2,7 +2,6 @@ import styled from 'styled-components';
 
 export const StyledNav = styled.nav`
   display: flex;
-  justify-content: center;
   height: fit-content;
   width: 100%;
   height: fit-content;
@@ -14,5 +13,40 @@ export const StyledNav = styled.nav`
     font-size: 3rem;
     font-variant: small-caps;
     padding: 0.6rem;
+  }
+`;
+
+export const StyledLinks = styled.div`
+  display: flex;
+  margin-left: 60%;
+
+  a {
+    text-decoration: none;
+    font-family: sans-serif;
+    font-size: 1.5rem;
+    font-weight: 600;
+    font-variant: small-caps;
+    text-align: center;
+    border-radius: 4px;
+    margin: 1.3rem 1rem 1rem 1rem;
+    padding: 0.4rem 0.6rem;
+    background: transparent;
+    color: #faeee7;
+    border: 2px solid white;
+
+    &:hover {
+      animation: scale-up-center 0.5s cubic-bezier(0.39, 0.575, 0.565, 1) both;
+    }
+  }
+
+  @keyframes scale-up-center {
+    0% {
+      -webkit-transform: scale(0.5);
+      transform: scale(0.5);
+    }
+    100% {
+      -webkit-transform: scale(1);
+      transform: scale(1);
+    }
   }
 `;
