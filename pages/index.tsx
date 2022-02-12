@@ -2,7 +2,7 @@ import type { NextPage } from 'next';
 import { useEffect, useState } from 'react';
 import Card from '../components/Card';
 
-interface Images {
+export interface Images {
   id: number;
   src: string;
 }
@@ -43,15 +43,14 @@ const Home: NextPage = (props) => {
     setMoves(0);
   };
 
-  // useEffect(() => {
-  //   shuffleCards(images);
-  //   console.log(cards);
-  // }, []);
+  useEffect(() => {
+    shuffleCards(images);
+  }, []);
 
   return (
     <div>
       <main>
-        <Card />
+        <Card cards={cards} />
       </main>
     </div>
   );
