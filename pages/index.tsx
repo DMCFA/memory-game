@@ -1,6 +1,10 @@
 import type { NextPage } from 'next';
 import { useEffect, useState } from 'react';
-import Card from '../components/Card';
+import {
+  StyledContainer,
+  StyledNewGameButton,
+  StyledCard,
+} from '../styles/Card.styled';
 
 export interface Images {
   id: number;
@@ -48,11 +52,21 @@ const Home: NextPage = (props) => {
   }, []);
 
   return (
-    <div>
-      <main>
-        <Card cards={cards} />
-      </main>
-    </div>
+    <StyledContainer>
+      <h1>Memory Game</h1>
+      <StyledNewGameButton onClick={() => shuffleCards(images)}>
+        New Game
+      </StyledNewGameButton>
+      <StyledCard>
+        {cards.map((card) => {
+          <div key={card.id}>
+            <div>
+              <img src={card.src} alt='card image' />
+            </div>
+          </div>;
+        })}
+      </StyledCard>
+    </StyledContainer>
   );
 };
 
