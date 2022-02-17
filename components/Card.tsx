@@ -1,22 +1,33 @@
 import React, { useState } from 'react';
-import { Images } from '../pages/index';
+import { Image } from '../pages';
 import {
+  StyledBackCard,
   StyledCard,
-  StyledContainer,
-  StyledNewGameButton,
+  StyledFrontCard,
 } from '../styles/Card.styled';
 
-const Card: React.FC<Images> = (props): JSX.Element => {
+interface Props {
+  card: Image;
+  handleChoice: (card: Image) => void;
+}
+
+const Card: React.FC<Props> = ({ card, handleChoice }): JSX.Element => {
+  const handleClick = () => {
+    if (card.clicked) handleChoice(card);
+  };
   return (
-    <>
-      <StyledContainer>
-        <StyledNewGameButton>new game</StyledNewGameButton>
-        <StyledCard key={props.id}>
-          <img src={props.src} alt='front image' />
-        </StyledCard>
-        ;
-      </StyledContainer>
-    </>
+    <StyledCard onClick={handleClick}>
+      <StyledFrontCard
+        flipped={card.flipped}
+        src={card.frontCard}
+        alt='front card image'
+      />
+      <StyledBackCard
+        flipped={card.flipped}
+        src={card.backCard}
+        alt='cover image'
+      />
+    </StyledCard>
   );
 };
 
