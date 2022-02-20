@@ -9,16 +9,16 @@ import {
 
 //game images
 const imagesArr: string[] = [
-  'images/alpine.png',
-  'images/apple.png',
-  'images/credit-card.png',
-  'images/hammer.png',
-  'images/ice-cream-cup.png',
-  'images/soccer-ball.png',
-  'images/startup.png',
-  'images/vynil.png',
-  'images/walrus.png',
-  'images/wristwatch.png',
+  '/images/alpine.png',
+  '/images/apple.png',
+  '/images/credit-card.png',
+  '/images/hammer.png',
+  '/images/ice-cream-cup.png',
+  '/images/soccer-ball.png',
+  '/images/startup.png',
+  '/images/vynil.png',
+  '/images/walrus.png',
+  '/images/wristwatch.png',
 ];
 
 //interface
@@ -56,10 +56,12 @@ const shuffleCards = (): Image[] => {
 
 const Home: NextPage = (props) => {
   const [cards, setCards] = useState<Image[]>(shuffleCards());
-  const [moves, setMoves] = useState<Number>(0);
+  const [moves, setMoves] = useState(0);
+  const [currentCard, setCurrentCard] = useState<undefined | Image>(undefined);
 
   //game logic
   const handleChoice = (clickedCard: Image): void => {
+    console.log('click');
     setCards((item) =>
       item.map((card) =>
         card.id === clickedCard.id
@@ -67,13 +69,21 @@ const Home: NextPage = (props) => {
           : card
       )
     );
+
+    if (!currentCard) {
+      setCurrentCard({ ...clickedCard });
+      return;
+    }
+
+    if (currentCard.id === clickedCard.id) {
+      setMoves((item) => item + 1);
+    }
   };
 
   return (
     <StyledContainer>
-      <h1>Memory Game</h1>
       <StyledNewGameButton onClick={() => shuffleCards()}>
-        New Game
+        new game
       </StyledNewGameButton>
       <StyledGrid>
         {cards.map((card) => (
