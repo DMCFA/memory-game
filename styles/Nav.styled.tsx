@@ -9,10 +9,10 @@ export const StyledNav = styled.nav`
 
   h1 {
     color: #faeee7;
-    font-family: sans-serif;
     font-size: 3rem;
     font-variant: small-caps;
     padding: 0.6rem;
+    padding-inline-start: 4rem;
   }
 `;
 
