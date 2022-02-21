@@ -28,7 +28,22 @@ export interface Image {
   backCard: string;
   flipped: boolean;
   clicked: boolean;
+  matchCard: string;
 }
+
+//board
+const newBoard = (): Image[] =>
+  [...imagesArr, ...imagesArr].map((card, idx) => ({
+    id: `card${idx}`,
+    frontCard: card,
+    backCard: 'images/cover.png',
+    flipped: false,
+    clicked: false,
+    matchCard:
+      idx < imagesArr.length
+        ? `card${idx + imagesArr.length}`
+        : `card${idx - imagesArr.length}`,
+  }));
 
 //helper function to shuffle cards
 const swapCards = (arr: Image[], i: number, j: number) => {
@@ -37,31 +52,31 @@ const swapCards = (arr: Image[], i: number, j: number) => {
   arr[j] = temp;
 };
 
-//shuffle cards function --> duplicates the array, shuffles and sets the new array and turns the move count to zero
-const shuffleCards = (): Image[] => {
-  const newArr: any[] = [...imagesArr, ...imagesArr];
-  for (let i = newArr.length; i > 0; i--) {
-    const randomIndex = Math.floor(Math.random() * i);
-    const currentIndex = i - 1;
-    swapCards(newArr, randomIndex, currentIndex);
-  }
-  return newArr.map((card, idx) => ({
-    id: `card${idx}`,
-    frontCard: card,
-    backCard: 'images/cover.png',
-    flipped: false,
-    clicked: false,
-  }));
-};
-
 const Home: NextPage = (props) => {
-  const [cards, setCards] = useState<Image[]>(shuffleCards());
+  const [cards, setCards] = useState<Image[]>([]);
   const [moves, setMoves] = useState(0);
+  const [matchedPairs, setMatchedPairs] = useState(0);
   const [currentCard, setCurrentCard] = useState<undefined | Image>(undefined);
+  const [gameWon, setGameWon] = useState(false);
+
+  //shuffle cards function
+  const shuffleCards = (newArr: any[]): void => {
+    setMoves(0);
+    setMatchedPairs(0);
+    const shuffledArr = newArr
+      .map((a) => [Math.random(), a])
+      .sort((a, b) => a[0] - b[0])
+      .map((a) => a[1]);
+    setCards(shuffledArr);
+  };
+
+  //new game
+  useEffect(() => {
+    setCards(newBoard());
+  }, []);
 
   //game logic
   const handleChoice = (clickedCard: Image): void => {
-    console.log('click');
     setCards((item) =>
       item.map((card) =>
         card.id === clickedCard.id
@@ -71,18 +86,47 @@ const Home: NextPage = (props) => {
     );
 
     if (!currentCard) {
+      setMoves((item) => item + 1);
       setCurrentCard({ ...clickedCard });
       return;
     }
 
-    if (currentCard.id === clickedCard.id) {
+    if (currentCard.matchCard === clickedCard.id) {
       setMoves((item) => item + 1);
+      setMatchedPairs((item) => item + 1);
+      setCards((item) =>
+        item.map((card) =>
+          card.id === currentCard.id || card.id === clickedCard.id
+            ? { ...card, clicked: true }
+            : card
+        )
+      );
+      setCurrentCard(undefined);
+      return;
     }
+
+    setTimeout(() => {
+      setCards((item) =>
+        item.map((card) =>
+          card.id === currentCard.id || card.id === clickedCard.id
+            ? { ...card, flipped: false, clicked: true }
+            : card
+        )
+      );
+    }, 1000);
+    setCurrentCard(undefined);
   };
+
+  //game won
+  useEffect(() => {
+    if (matchedPairs === cards.length / 2) {
+      setGameWon(true);
+    }
+  }, [matchedPairs]);
 
   return (
     <StyledContainer>
-      <StyledNewGameButton onClick={() => shuffleCards()}>
+      <StyledNewGameButton onClick={() => shuffleCards(newBoard())}>
         new game
       </StyledNewGameButton>
       <StyledGrid>
