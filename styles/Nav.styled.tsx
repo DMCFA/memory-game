@@ -2,7 +2,6 @@ import styled from 'styled-components';
 
 export const StyledNav = styled.nav`
   display: flex;
-  height: fit-content;
   width: 100%;
   height: fit-content;
   background-color: #325288;
@@ -11,8 +10,8 @@ export const StyledNav = styled.nav`
     color: #faeee7;
     font-size: 3rem;
     font-variant: small-caps;
-    padding: 0.6rem;
     padding-inline-start: 4rem;
+    line-height: 110%;
   }
 `;
 
@@ -28,7 +27,7 @@ export const StyledLinks = styled.div`
     font-variant: small-caps;
     text-align: center;
     border-radius: 4px;
-    margin: 1.3rem 1rem 1rem 1rem;
+    margin: 0.8rem 1rem 0.8rem 1rem;
     padding: 0.4rem 0.6rem;
     background: transparent;
     color: #faeee7;
