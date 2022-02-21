@@ -13,7 +13,7 @@ interface Props {
 
 const Card: React.FC<Props> = ({ card, handleChoice }): JSX.Element => {
   const handleClick = () => {
-    if (card.clicked) handleChoice(card);
+    handleChoice(card);
   };
   return (
     <StyledCard onClick={handleClick}>
