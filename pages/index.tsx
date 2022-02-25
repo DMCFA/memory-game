@@ -1,10 +1,13 @@
 import type { NextPage } from 'next';
+import Router from 'next/router';
 import { useEffect, useState } from 'react';
 import Card from '../components/Card';
 import {
   StyledContainer,
   StyledNewGameButton,
   StyledGrid,
+  StyledGameHeader,
+  StyledResults,
 } from '../styles/Card.styled';
 
 //game images
@@ -57,22 +60,20 @@ const Home: NextPage = (props) => {
   const [moves, setMoves] = useState(0);
   const [matchedPairs, setMatchedPairs] = useState(0);
   const [currentCard, setCurrentCard] = useState<undefined | Image>(undefined);
-  const [gameWon, setGameWon] = useState(false);
 
   //shuffle cards function
-  const shuffleCards = (newArr: any[]): void => {
-    setMoves(0);
-    setMatchedPairs(0);
-    const shuffledArr = newArr
+  const shuffleCards = (newArr: any[]): any[] => {
+    return newArr
       .map((a) => [Math.random(), a])
       .sort((a, b) => a[0] - b[0])
       .map((a) => a[1]);
-    setCards(shuffledArr);
   };
 
   //new game
   useEffect(() => {
-    setCards(newBoard());
+    setMoves(0);
+    setMatchedPairs(0);
+    setCards(shuffleCards(newBoard()));
   }, []);
 
   //game logic
@@ -119,16 +120,20 @@ const Home: NextPage = (props) => {
 
   //game won
   useEffect(() => {
-    if (matchedPairs === cards.length / 2) {
-      setGameWon(true);
+    if (matchedPairs > 0 && matchedPairs === cards.length / 2) {
+      Router.push('/won');
     }
   }, [matchedPairs]);
 
   return (
     <StyledContainer>
-      <StyledNewGameButton onClick={() => shuffleCards(newBoard())}>
-        new game
-      </StyledNewGameButton>
+      <StyledGameHeader>
+        <StyledResults>moves ➡️ {moves}</StyledResults>
+        <StyledNewGameButton onClick={() => Router.reload()}>
+          new game
+        </StyledNewGameButton>
+        <StyledResults>matched pairs ➡️ {matchedPairs}</StyledResults>
+      </StyledGameHeader>
       <StyledGrid>
         {cards.map((card) => (
           <Card key={card.id} card={card} handleChoice={handleChoice} />
