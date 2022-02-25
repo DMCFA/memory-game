@@ -7,6 +7,11 @@ export const StyledContainer = styled.div`
   justify-content: center;
   align-items: center;
   padding: 5rem;
+
+  @media screen and (max-width: 500px) {
+    margin-top: 5rem;
+    padding: 0;
+  }
 `;
 
 export const StyledTitle = styled.h1`

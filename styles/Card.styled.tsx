@@ -28,11 +28,18 @@ export const StyledResults = styled.h4`
   color: #325288;
   font-size: 2.4rem;
   font-variant: small-caps;
+
+  @media screen and (max-width: 800px) {
+    font-size: 1.8rem;
+  }
+
+  @media screen and (max-width: 600px) {
+    font-size: 1.1rem;
+    line-height: 230%;
+  }
 `;
 
 export const StyledNewGameButton = styled.button`
-  /* display: block !important;
-  margin: 0 auto; */
   box-shadow: inset 0px 1px 0px 0px #97c4fe;
   background: linear-gradient(to bottom, #325288 5%, #205dbe 100%);
   background-color: #325288;
@@ -49,6 +56,18 @@ export const StyledNewGameButton = styled.button`
 
   @media screen and (max-width: 1451px) {
     padding: 0.7rem;
+  }
+
+  @media screen and (max-width: 800px) {
+    font-size: 1rem;
+  }
+
+  @media screen and (max-width: 600px) {
+    font-size: 1rem;
+    font-weight: 400;
+    text-transform: none;
+    font-variant: small-caps;
+    padding: 0.4rem 0.6rem;
   }
 
   &:hover {
@@ -72,6 +91,10 @@ export const StyledGrid = styled.div`
   @media screen and (max-width: 1600px) {
     margin-top: 1.5rem;
     row-gap: 0.5rem;
+  }
+
+  @media screen and (max-width: 700px) {
+    grid-template-columns: repeat(2, 1fr);
   }
 `;
 

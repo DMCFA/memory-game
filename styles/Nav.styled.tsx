@@ -22,6 +22,10 @@ export const StyledNav = styled.nav`
       font-size: 1.5rem;
       line-height: 225%;
     }
+
+    @media screen and (max-width: 400px) {
+      padding-inline-start: 0.6rem;
+    }
   }
 `;
 
@@ -41,7 +45,7 @@ export const StyledLinks = styled.div`
     font-variant: small-caps;
     text-align: center;
     border-radius: 4px;
-    margin: 0.8rem 1rem 0.8rem 1rem;
+    margin: 0.8rem 1rem;
     padding: 0.4rem 0.6rem;
     background: transparent;
     color: #faeee7;
@@ -56,6 +60,11 @@ export const StyledLinks = styled.div`
     }
     @media screen and (max-width: 1000px) {
       font-size: 1rem;
+    }
+
+    @media screen and (max-width: 400px) {
+      padding: 0.4rem 0.4rem;
+      margin: 0.8rem 0.8rem;
     }
 
     &:hover {
