@@ -12,7 +12,7 @@ const Rules: React.FC = (): ReactElement => {
       <StyledH2>Rules</StyledH2>
       <StyledH3>game objective</StyledH3>
       <StyledP>
-        The object of the game is to collect the most matching pairs.<br></br>
+        The game objective is to collect all the matching pairs.<br></br>
         On the game board, there are always two identical images.<br></br>
         Start the game by flipping a card. Then try to find another card that
         has the same image as the first. <br></br>If you can't find a pair, the
